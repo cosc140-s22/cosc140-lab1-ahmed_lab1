@@ -10,8 +10,9 @@
     then prints the equivalent seconds, minutes, hours, and days. 
 '''
 numSec = int(input("How many seconds? "))
-minutes, seconds = divmod(numSec, 60)
-hours, minutes = divmod(minutes, 60)
-days, hours = divmod(hours, 24)
+days, numSec = divmod(numSec,60*60*24) #Days and remaining seconds
+hours, numSec = divmod(numSec, 60*60) #Hours and remaining seconds
+minutes, numSec = divmod(numSec, 60) #Minutes and remaining seconds
+seconds = numSec #Remaining seconds
 
 print(F"{numSec} seconds is equivalent to {days} {'days' if (days>1) else 'day'}, {hours} {'hours' if (hours>1) else 'hour'}, {minutes} {'minutes' if (minutes>1) else 'minute'}, and {seconds} {'seconds' if (seconds>1) else 'second'}.")
