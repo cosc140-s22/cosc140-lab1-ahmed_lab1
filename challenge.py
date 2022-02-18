@@ -19,8 +19,10 @@ def choose_addr(res):
     '''
         Function that takes a response.json() disctionary from the API and returns the address that fits best
     '''
-    valid_res = [data for data in res if all (prop in data for prop in ["lat", "lon", "display_name"])] #Valid responses have a lat, lon and display_name property 
+    valid_res = [data for data in res if all (prop in data for prop in ["lat", "lon", "display_name"])] # Valid responses have a lat, lon and display_name property 
+    
     if (len(valid_res)>1):
+        # Have the user chosse the most accurate address if multiple present
         print("Which of these most closely matches your selection? Provide the index [starting at 0] \n")
         for index,r in enumerate(valid_res):
             print(F"{index}) {r['display_name']}")
@@ -31,10 +33,14 @@ def choose_addr(res):
         return None
     
 def get_coords(addr1, addr2):
-    res = choose_addr(requests.get(F'https://nominatim.openstreetmap.org/search?q={addr1}&format=json').json())
+    '''
+        Get two addresses from the user and return the coordinates if they're found by the API
+    '''
+    API = "https://nominatim.openstreetmap.org/search"
+    res = choose_addr(requests.get(F'{API}?q={addr1}&format=json').json())
     if(res):
         lat1, lon1 = res["lat"], res["lon"]
-        res = choose_addr(requests.get(F'https://nominatim.openstreetmap.org/search?q={addr2}&format=json').json())
+        res = choose_addr(requests.get(F'{API}?q={addr2}&format=json').json())
         if(res):
             lat2, lon2 = res["lat"], res["lon"]
             return (float(lat1), float(lon1), float(lat2), float(lon2))
