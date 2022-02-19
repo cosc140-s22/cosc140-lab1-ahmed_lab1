@@ -8,5 +8,8 @@
 
 ## Feedback
 
-Once you commit and submit your work to Github, I'll update this section with feedback.
+S
 
+For problem 1, the output printed doesn't include the original number of seconds (that variable value has changed by the time you print it out there).
+
+Excellent job on problem 2 and the challenge!
